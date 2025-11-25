@@ -41,18 +41,19 @@ def process_json(file_path):
             else:    
                 print("Text: ",raw_load["text"][count]["jpText"])
                 enText = translate(raw_load["text"][count]["jpText"])
-                enText = enText.replace("\n### Response:\n", "")    
+                enText = enText.replace('\n', ' ').replace('  ', ' ').replace("\n### Response:\n", "")    
                 raw_load["text"][count]["enText"] = enText
         except IndexError: 
             print("Finished!")
             break
+
         try:
             if raw_load["text"][count]["choices"][0].get("enText", "").strip():
                 print(f"Choice 0 (SKIP): '{raw_load['text'][count]['choices'][0]['jpText']}' already done.")
             else:
                 print("Choice: ",raw_load["text"][count]["choices"][0]["jpText"])
                 enText = translate(raw_load["text"][count]["choices"][0]["jpText"])
-                enText = enText.replace("\n### Response:\n", "")    
+                enText = enText.replace('\n', ' ').replace('  ', ' ').replace("\n### Response:\n", "")    
                 raw_load["text"][count]["choices"][0]["enText"] = enText
 
             if raw_load["text"][count]["choices"][1].get("enText", "").strip():
@@ -60,7 +61,7 @@ def process_json(file_path):
             else:
                 print("Choice: ",raw_load["text"][count]["choices"][1]["jpText"])
                 enText = translate(raw_load["text"][count]["choices"][1]["jpText"])
-                enText = enText.replace("\n### Response:\n", "")    
+                enText = enText.replace('\n', ' ').replace('  ', ' ').replace("\n### Response:\n", "")    
                 raw_load["text"][count]["choices"][1]["enText"] = enText              
         except KeyError:
             print("No choice")
