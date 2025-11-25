@@ -1,8 +1,9 @@
 import json
 import requests
 import toml
+import os
 
-raw_json = "raw/example.json"
+target_folder = "raw"
 
 with open("dictionary.json", "r", encoding="utf-8") as file:
     dictionary = json.load(file)
@@ -11,10 +12,10 @@ with open("dictionary.json", "r", encoding="utf-8") as file:
 with open("config.toml", "r") as f:
     config = toml.load(f)
 
-def process_json():
-    print("Loading Json")
+def process_json(file_path):
+    print(f"Loading {file_path}")
     count = -1
-    with open(raw_json, "r", encoding="utf-8") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         raw_load = json.load(file)
 
     while True:
@@ -45,7 +46,7 @@ def process_json():
         except IndexError:
             print("Only one choice")
 
-    with open(raw_json, "w", encoding="utf-8") as file:
+    with open(file_path, "w", encoding="utf-8") as file:
         json.dump(raw_load, file, indent=4, ensure_ascii=False) 
 
 
@@ -92,4 +93,16 @@ def translate(rawText):
     print(f"Translation: {trans_text}")
     return trans_text
 
-process_json()
+def transLoop():
+    if not os.path.exists(target_folder):
+        print("Folder does not exist")
+        return
+    print(f"Running through all files in {target_folder}")
+
+    for root, _, files in os.walk(target_folder):
+            for file_name in files:
+                if file_name.endswith('.json'):
+                    file_path = os.path.join(root, file_name)
+                    process_json(file_path)    
+
+transLoop()
