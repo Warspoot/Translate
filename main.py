@@ -31,9 +31,11 @@ def process_json(file_path):
                     print("no name")
                 else:
                     enName = translate(raw_load["text"][count]["jpName"])
-                    enName = enName.replace("\n### Response:\n", "")    
+                    enName = enName.replace("\n### Response:\n", "")
+                    if enName == "Monologue":
+                        enName = " "    
                     raw_load["text"][count]["enName"] = enName
-
+            
             if raw_load["text"][count].get("enText", "").strip():
                 print(f"Text (SKIP): '{raw_load['text'][count]['jpText']}' already done.")
             else:    
