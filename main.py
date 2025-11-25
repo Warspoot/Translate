@@ -27,7 +27,7 @@ def process_json(file_path):
                 print(f"Name (SKIP): '{raw_load['text'][count]['jpName']}' already done.")
             else:    
                 print("Name: ",raw_load["text"][count]["jpName"])
-                if not raw_load["text"][count].get("enName", "").strip():
+                if not raw_load["text"][count].get("jpName", "").strip():
                     print("no name")
                 else:
                     enName = translate(raw_load["text"][count]["jpName"])
