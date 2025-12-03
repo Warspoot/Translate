@@ -1,5 +1,6 @@
 raw/
 translation/
+complete/
 config.toml
 dictionary.json
 example.json
