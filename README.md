@@ -3,7 +3,7 @@ a silly script for using a LLM to translate silly honse game\
 *(i dont even know how to code)*
 
 ## Usage
-This repo works best when paired with an lm studio server
+This repo works best when paired with an LM Studio server *(may work with Ollama or other OpenAI-like endpoints but untested)*
 ### Config
 The following Scripts require a config.toml file with parameters (as an example):
 ```
@@ -28,4 +28,5 @@ Find a way to extract the character system text from the game in hachimi format 
 **run ```py translate_character_system.py```**
 
 ### Post Cleaning Scripts
-Names should be self explanatory but are mainly specific to the model and dictionary I have on my setup
+Names should be self explanatory but are mainly specific to the model and dictionary I have on my setup \
+These scripts should be run from the root directory with **```py postclean/script_name.py```**
