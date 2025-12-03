@@ -1,7 +1,7 @@
 [server]
-api_url = "127.0.0.1/v1/chat/completions"
+api_url = "http://127.0.0.1:1234/v1/chat/completions"
 api_key = "key"
-model = "lm_studio/meta-llama-3.1-8b-instruct"
+model = "lm_studio/mistral-nemo.q8_0.gguf"
 temperature = 0.1
 max_tokens = 3200
 top_p = 0.95
@@ -31,6 +31,8 @@ Assistant: Hello
 - Translate cultural terms and onomatopoeia according to provided instructions or established guidelines.
 
 # Instructions
+- Do not translate that is already romanised/in english
+- if there is blank text after being told to translate, leave it blank and return a blank response.
 - Output only the translated English text; do not include commentary, explanations, or extraneous information.
 - Express the meaning and nuance of the source text faithfully; use colloquial expressions or slang only if they appear in the Japanese source.
 - Appropriately adapt jokes and cultural references, retaining Japanese humour when present in the original.
