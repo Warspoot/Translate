@@ -1,5 +1,6 @@
 # HonseTrans
-a silly script for using a LLM to translate silly honse game (i dont even know how to code)
+a silly script for using a LLM to translate silly honse game\
+*(i dont even know how to code)*
 
 ## Usage
 This repo works best when paired with an lm studio server
@@ -27,4 +28,4 @@ Find a way to extract the character system text from the game in hachimi format 
 **run ```py translate_character_system.py```**
 
 ### Post Cleaning Scripts
-Names should be self explanatory.
+Names should be self explanatory but are mainly specific to the model and dictionary I have on my setup
