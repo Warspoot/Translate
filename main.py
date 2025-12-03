@@ -47,26 +47,16 @@ def process_json(file_path):
             print("Finished!")
             break
 
-        try:
-            if raw_load["text"][count]["choices"][0].get("enText", "").strip():
-                print(f"Choice 0 (SKIP): '{raw_load['text'][count]['choices'][0]['jpText']}' already done.")
-            else:
-                print("Choice: ",raw_load["text"][count]["choices"][0]["jpText"])
-                enText = translate(raw_load["text"][count]["choices"][0]["jpText"])
-                enText = enText.replace('\n', ' ').replace('  ', ' ').replace("\n### Response:\n", "")    
-                raw_load["text"][count]["choices"][0]["enText"] = enText
-
-            if raw_load["text"][count]["choices"][1].get("enText", "").strip():
-                print(f"Choice 1 (SKIP): '{raw_load['text'][count]['choices'][1]['jpText']}' already done.")
-            else:
-                print("Choice: ",raw_load["text"][count]["choices"][1]["jpText"])
-                enText = translate(raw_load["text"][count]["choices"][1]["jpText"])
-                enText = enText.replace('\n', ' ').replace('  ', ' ').replace("\n### Response:\n", "")    
-                raw_load["text"][count]["choices"][1]["enText"] = enText              
-        except KeyError:
-            print("No choice")
-        except IndexError:
-            print("Only one choice")
+        for i, entry in enumerate(raw_load["text"]):
+            if "choices" in entry:
+                for j, choice in enumerate(entry["choices"]):
+                    if choice.get("enText", "").strip():
+                        print(f"Choice (SKIP): already done.")
+                    else:
+                        print("Choice: ", choice["jpText"])
+                        enText = translate(choice["jpText"])
+                        enText = enText.replace('\n', ' ').replace('  ', ' ')
+                        raw_load["text"][i]["choices"][j]["enText"] = enText                                                                           
 
     with open(file_path, "w", encoding="utf-8") as file:
         json.dump(raw_load, file, indent=4, ensure_ascii=False) 
@@ -88,13 +78,12 @@ def translate(rawText):
         "temperature" : config["server"]["temperature"],
         "messages" : [
             {
-                "role": "user", "content": rawText
+                "role" : "system", "content" : f"{config['server']['system_prompt']} Refer to below for a dictionary in json format with the order japanese_text : english_text. (example\"ミホノブルボン\": \"Mihono Bourbon\", which means translate ミホノブルボン to Mihono Bourbon. \n {dictionary_json_str} \n translate the below text",
             },
             {
-                "role" : "system", "content" : f"{config['server']['system_prompt']} Refer to below for a dictionary in json format with the order japanese_text : english_text. (example\"ミホノブルボン\": \"Mihono Bourbon\", which means translate ミホノブルボン to Mihono Bourbon. \n {dictionary_json_str} \n translate the below text",
+                "role": "user", "content": rawText
             }
         ],
-        "max_completion_tokens" : "300",
     }
 
     optional_params = {
