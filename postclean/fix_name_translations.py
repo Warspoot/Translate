@@ -18,13 +18,13 @@ def create_fix_mappings():
     This includes both high-severity (completely wrong) and medium-severity (inconsistent) translations.
     """
     # Mapping of incorrect English names to their correct forms
-    # Based on the analysis results
+    # incorrect name : correct name
     return {
         # HIGH SEVERITY FIXES
         'Aston Marchant': 'Aston Machan',
         'Aston Marchan': 'Aston Machan',
         'Golodfin Barb': 'Golshi',
-        'Goddolphin Barb': 'Golshi',  # Extra 'd' typo
+        'Goddolphin Barb': 'Golshi', 
         'Hai, Sei, Ko!': 'Haiseiko',
         'Hai, Sei-koh!': 'Haiseiko',
         'Hai sei ko!': 'Haiseiko',
@@ -39,8 +39,6 @@ def create_fix_mappings():
         "<unk>" : "",
         "Tickezo" : "Ticket",
         "Pockedex" : "Archive",
-
-        # MEDIUM SEVERITY FIXES (fixing inconsistencies to match dictionary)
         'Tannino Gimlet': 'Tanino Gimlet',
         'Vibros': 'Vivlos',
         'No reason.': 'No Reason',
